@@ -1,0 +1,111 @@
+# Clinic Self-Service Kiosk: Standard Operating Procedures (SOP)
+
+## General Information
+
+### Opening Hours
+- Monday to Friday: 8:00 AM - 5:00 PM
+- Saturday: 8:00 AM - 1:00 PM
+- Sunday: Closed
+- Public Holidays: Check website for special hours
+
+### Appointments
+- Morning sessions: 8:00 AM - 12:00 PM
+- Afternoon sessions: 1:00 PM - 5:00 PM
+- Standard appointment duration: 15-30 minutes depending on type
+- Walk-in patients are accepted but priority is given to appointments
+- Patients should arrive 15 minutes before their appointment time
+
+### Insurance & Payment
+- Payment methods accepted: Cash, NETS, Credit Card, PayNow, PayLah
+- We accept direct insurance claims from the following providers: Prudential, AIA, Great Eastern, NTUC Income, Medishield Life
+- Co-payments may apply depending on your insurance plan
+- Payment is required on the day of service unless prior arrangements have been made
+
+## Frequently Asked Questions
+
+### About the Kiosk System
+
+**Q: How do I use the self-service kiosk?**
+A: Simply click "Start Chat" to begin. You'll be prompted to provide your NRIC for identification. The system will guide you through each step with voice instructions.
+
+**Q: Is my information secure in the kiosk system?**
+A: Yes, all patient information is securely stored according to PDPA guidelines. The system uses encryption to protect your personal data, and your NRIC is partially masked when displayed.
+
+**Q: What if the kiosk cannot recognize my voice?**
+A: Speak clearly and at a normal pace. If the system still cannot recognize your speech, you can try again or seek assistance from our front desk staff.
+
+**Q: Can I check my medical records through the kiosk?**
+A: The kiosk provides access to your appointment history and outstanding payments. For detailed medical records, please speak with our front desk staff.
+
+### About Appointments
+
+**Q: How far in advance can I book an appointment?**
+A: Appointments can be booked up to 3 months in advance.
+
+**Q: How do I cancel or reschedule an appointment?**
+A: You can cancel or reschedule through the kiosk by selecting the appointment option and following the prompts. Please provide at least 24 hours' notice.
+
+**Q: What happens if I miss my appointment?**
+A: A missed appointment fee of $20 may be charged. Patients who miss three consecutive appointments without notice may have future appointment privileges restricted.
+
+**Q: Can I request a specific doctor?**
+A: Yes, you can request a specific doctor when scheduling your appointment, subject to their availability.
+
+**Q: How long will I have to wait if I come as a walk-in patient?**
+A: Wait times for walk-in patients vary depending on current clinic volume. Patients with appointments are given priority.
+
+### About Payments
+
+**Q: Can I pay for someone else's bill?**
+A: Yes, you can pay for another patient's bill if you have their NRIC and they have authorized you to do so.
+
+**Q: How do I get a receipt for my payment?**
+A: An electronic receipt will be sent to your registered email address. If you need a physical receipt, please inform our front desk staff.
+
+**Q: Can I pay my bill in installments?**
+A: For large bills, installment plans may be available. Please speak with our billing department to discuss options.
+
+**Q: What if there's an error in my bill?**
+A: If you believe there's an error in your bill, please speak with our front desk staff, who will investigate the issue.
+
+**Q: Do I need to pay for re-scheduled appointments?**
+A: No additional payment is required for re-scheduled appointments unless additional services are provided.
+
+### Medical Services
+
+**Q: What types of consultations do you offer?**
+A: We offer general consultations, chronic disease management, acute care for immediate concerns, and specialist referrals.
+
+**Q: Do you provide medication delivery services?**
+A: Yes, medication delivery is available for a small fee. Please inform the pharmacist if you require this service.
+
+**Q: How long does it take to get my laboratory results?**
+A: Most routine lab results are available within 24-48 hours. Some specialized tests may take longer.
+
+**Q: Can I get an MC (Medical Certificate) through the kiosk?**
+A: MCs are issued by doctors after consultation. The kiosk cannot issue MCs directly, but your doctor can provide one during your visit.
+
+**Q: Do you offer health screening packages?**
+A: Yes, we offer various health screening packages. Details can be found in our clinic brochure or by asking our front desk staff.
+
+### Technical Assistance
+
+**Q: Who do I contact if I encounter technical issues with the kiosk?**
+A: Please approach our front desk staff for immediate assistance with any technical issues.
+
+**Q: What if the system crashes during my session?**
+A: Your information is saved securely. Please inform our front desk staff who will help you complete your transaction.
+
+**Q: Can I use the kiosk if I'm a new patient?**
+A: New patients should register at the front desk first. After registration, you can use the kiosk for future visits.
+
+**Q: Is there a way to get the kiosk instructions in other languages?**
+A: The kiosk currently supports English, Mandarin, Malay, and Tamil. You can change the language setting at the start of your session.
+
+## Emergencies
+
+For medical emergencies, please do not use the kiosk. Approach our staff immediately or call our emergency line at 6XXX-XXXX.
+
+## Privacy Policy
+
+Our clinic adheres to the Personal Data Protection Act (PDPA). Your information is used only for clinical purposes and is not shared with third parties without your consent.

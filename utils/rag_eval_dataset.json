@@ -1,0 +1,206 @@
+[
+  {
+    "question": "What are the clinic's opening hours on weekdays?",
+    "expected_answer": "Monday to Friday: 8:00 AM - 5:00 PM"
+  },
+  {
+    "question": "Is the clinic open on Saturdays?",
+    "expected_answer": "Yes, the clinic is open on Saturday from 8:00 AM - 1:00 PM."
+  },
+  {
+    "question": "What are the Saturday hours?",
+    "expected_answer": "Saturday: 8:00 AM - 1:00 PM"
+  },
+  {
+    "question": "Is the clinic open on Sundays?",
+    "expected_answer": "No, the clinic is closed on Sundays."
+  },
+  {
+    "question": "What time do morning sessions run?",
+    "expected_answer": "Morning sessions: 8:00 AM - 12:00 PM"
+  },
+  {
+    "question": "When do afternoon appointments begin?",
+    "expected_answer": "Afternoon sessions: 1:00 PM - 5:00 PM"
+  },
+  {
+    "question": "How long is a typical appointment?",
+    "expected_answer": "Standard appointment duration: 15-30 minutes depending on type"
+  },
+  {
+    "question": "Do you accept walk-in patients?",
+    "expected_answer": "Walk-in patients are accepted but priority is given to appointments"
+  },
+  {
+    "question": "How early should I arrive for my appointment?",
+    "expected_answer": "Patients should arrive 15 minutes before their appointment time"
+  },
+  {
+    "question": "What payment methods do you accept?",
+    "expected_answer": "Payment methods accepted: Cash, NETS, Credit Card, PayNow, PayLah"
+  },
+  {
+    "question": "Which insurance providers do you accept?",
+    "expected_answer": "We accept direct insurance claims from the following providers: Prudential, AIA, Great Eastern, NTUC Income, Medishield Life"
+  },
+  {
+    "question": "Is payment required immediately after service?",
+    "expected_answer": "Is payment required immediately after service?"
+  },
+  {
+    "question": "How do I start using the self-service kiosk?",
+    "expected_answer": "Simply click \"Start Chat\" to begin. You'll be prompted to provide your NRIC for identification. The system will guide you through each step with voice instructions."
+  },
+  {
+    "question": "Is my personal data secure in the kiosk system?",
+    "expected_answer": "Yes, all patient information is securely stored according to PDPA guidelines. The system uses encryption to protect your personal data, and your NRIC is partially masked when displayed."
+  },
+  {
+    "question": "What should I do if the kiosk doesn't recognize my voice?",
+    "expected_answer": "Speak clearly and at a normal pace. If the system still cannot recognize your speech, you can try again or seek assistance from our front desk staff."
+  },
+  {
+    "question": "Can I view my medical records on the kiosk?",
+    "expected_answer": "The kiosk provides access to your appointment history and outstanding payments. For detailed medical records, please speak with our front desk staff."
+  },
+  {
+    "question": "How far ahead can I book an appointment?",
+    "expected_answer": "Appointments can be booked up to 3 months in advance."
+  },
+  {
+    "question": "How do I cancel my appointment?",
+    "expected_answer": "You can cancel or reschedule through the kiosk by selecting the appointment option and following the prompts. Please provide at least 24 hours' notice."
+  },
+  {
+    "question": "What's the penalty for missing my appointment?",
+    "expected_answer": "A missed appointment fee of $20 may be charged. Patients who miss three consecutive appointments without notice may have future appointment privileges restricted."
+  },
+  {
+    "question": "Can I request to see a specific doctor?",
+    "expected_answer": "Yes, you can request a specific doctor when scheduling your appointment, subject to their availability."
+  },
+  {
+    "question": "How long will I wait if I don't have an appointment?",
+    "expected_answer": "Wait times for walk-in patients vary depending on current clinic volume. Patients with appointments are given priority."
+  },
+  {
+    "question": "Can I pay someone else's medical bill?",
+    "expected_answer": "Yes, you can pay for another patient's bill if you have their NRIC and they have authorized you to do so."
+  },
+  {
+    "question": "How do I get payment receipt?",
+    "expected_answer": "An electronic receipt will be sent to your registered email address. If you need a physical receipt, please inform our front desk staff."
+  },
+  {
+    "question": "Can I pay my medical bill in installments?",
+    "expected_answer": "For large bills, installment plans may be available. Please speak with our billing department to discuss options."
+  },
+  {
+    "question": "What if there's a mistake in my bill?",
+    "expected_answer": "If you believe there's an error in your bill, please speak with our front desk staff, who will investigate the issue."
+  },
+  {
+    "question": "Do I need to pay again for rescheduled appointments?",
+    "expected_answer": "No additional payment is required for re-scheduled appointments unless additional services are provided."
+  },
+  {
+    "question": "What types of medical consultations do you provide?",
+    "expected_answer": "We offer general consultations, chronic disease management, acute care for immediate concerns, and specialist referrals."
+  },
+  {
+    "question": "Do you deliver medications?",
+    "expected_answer": "Yes, medication delivery is available for a small fee. Please inform the pharmacist if you require this service."
+  },
+  {
+    "question": "How long does it take to get lab test results?",
+    "expected_answer": "Most routine lab results are available within 24-48 hours. Some specialized tests may take longer."
+  },
+  {
+    "question": "Can I get a medical certificate through the kiosk?",
+    "expected_answer": "MCs are issued by doctors after consultation. The kiosk cannot issue MCs directly, but your doctor can provide one during your visit."
+  },
+  {
+    "question": "Do you offer health screening packages?",
+    "expected_answer": "Yes, we offer various health screening packages. Details can be found in our clinic brochure or by asking our front desk staff."
+  },
+  {
+    "question": "Who should I contact for kiosk technical issues?",
+    "expected_answer": "Please approach our front desk staff for immediate assistance with any technical issues."
+  },
+  {
+    "question": "What happens if the system crashes while I'm using it?",
+    "expected_answer": "Your information is saved securely. Please inform our front desk staff who will help you complete your transaction."
+  },
+  {
+    "question": "Can new patients use the kiosk?",
+    "expected_answer": "New patients should register at the front desk first. After registration, you can use the kiosk for future visits."
+  },
+  {
+    "question": "What languages does the kiosk support?",
+    "expected_answer": "The kiosk currently supports English, Mandarin, Malay, and Tamil. You can change the language setting at the start of your session."
+  },
+  {
+    "question": "What should I do in case of a medical emergency?",
+    "expected_answer": "For medical emergencies, please do not use the kiosk. Approach our staff immediately or call our emergency line at 6XXX-XXXX."
+  },
+  {
+    "question": "How is my data protected?",
+    "expected_answer": "Our clinic adheres to the Personal Data Protection Act (PDPA). Your information is used only for clinical purposes and is not shared with third parties without your consent."
+  },
+  {
+    "question": "Do you accept cash payments?",
+    "expected_answer": "Yes, cash is one of the accepted payment methods at our clinic."
+  },
+  {
+    "question": "What are the clinic's public holiday hours?",
+    "expected_answer": "For public holidays, please check the website for special hours."
+  },
+  {
+    "question": "Do I have to pay an additional fee if I miss my appointment?",
+    "expected_answer": "A missed appointment fee of $20 may be charged."
+  },
+  {
+    "question": "How much notice should I give to cancel an appointment?",
+    "expected_answer": "Please provide at least 24 hours' notice for cancellation or rescheduling."
+  },
+  {
+    "question": "Do you have co-payment requirements with insurance?",
+    "expected_answer": "Co-payments may apply depending on your insurance plan."
+  },
+  {
+    "question": "What happens if I miss three appointments in a row?",
+    "expected_answer": "Patients who miss three consecutive appointments without notice may have future appointment privileges restricted."
+  },
+  {
+    "question": "Does the clinic offer specialist referrals?",
+    "expected_answer": "Yes, we offer specialist referrals as part of our services."
+  },
+  {
+    "question": "What services does the kiosk provide?",
+    "expected_answer": "The kiosk provides access to your appointment history and outstanding payments. You can also schedule, cancel or reschedule appointments through the kiosk."
+  },
+  {
+    "question": "Is there a fee for medication delivery?",
+    "expected_answer": "Yes, medication delivery is available for a small fee."
+  },
+  {
+    "question": "Does the clinic manage chronic diseases?",
+    "expected_answer": "Yes, we offer chronic disease management as one of our services."
+  },
+  {
+    "question": "How do I get information about health screening packages?",
+    "expected_answer": "Details about health screening packages can be found in our clinic brochure or by asking our front desk staff."
+  },
+  {
+    "question": "Does the kiosk have voice instructions?",
+    "expected_answer": "Yes, the system will guide you through each step with voice instructions."
+  },
+  {
+    "question": "What health insurance is accepted by the clinic?",
+    "expected_answer": "We accept direct insurance claims from Prudential, AIA, Great Eastern, NTUC Income, and Medishield Life."
+  },
+  {
+    "question": "Do I need an appointment to see a doctor?",
+    "expected_answer": "Walk-in patients are accepted, but priority is given to patients with appointments."
+  }
+]
