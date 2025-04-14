@@ -51,6 +51,26 @@ The application is designed so that you don’t have to set up any secrets file 
 
 > **Note:** For Stripe payment processing, you can have the default configuration if payments are enabled, or the application may also allow you to update keys from the app interface depending on how the payment logic is set up.
 
+## Patient Data Simulation and Admin Portal
+
+For demonstration purposes, the Clinic Voice Assistant currently uses a simulated patient record:
+
+- **Registered Patient:**  
+  The only registered NRIC in the system is `S1234567A`. This record is used for verifying patient identity during the chat-based interaction.
+
+- **Appointments and Outstanding Charges:**  
+  Appointments and outstanding charges are created and managed using the Clinic Admin Portal. This portal simulates service provider visit updates and prescription creation.
+
+- **Accessing the Clinic Admin Portal:**  
+  You can use the admin portal to update patient details, manage appointments, and configure outstanding charges. To access the portal, visit:  
+  [https://clinic-adm-app.streamlit.app/](https://clinic-adm-app.streamlit.app/)
+  
+  **Sample Service Provider Credentials:**  
+  - **Username:** `doctor@gmail.com`  
+  - **Password:** `doctor`  
+
+> **Note:** The current simulation is designed for demonstration purposes. Developers may customize the data handling or integrate with an actual patient management system as needed.
+
 ## Folder Structure
 
 A typical folder structure for the project may look like this:
