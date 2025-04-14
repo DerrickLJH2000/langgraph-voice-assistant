@@ -52,17 +52,40 @@ from supabase_functions import (
     update_appointment_datetime
 )
 from appointment_agent import *
+# ----------------------- Intent Classification -----------------------
+class IntentClassification(BaseModel):
+    """Classification of user intent."""
+    intent: str = Field(
+        description="The classified intent, must be one of: 'appointment', 'payment', 'faq', 'unknown'")
+    confidence: float = Field(
+        description="Confidence score between 0 and 1")
+    explanation: str = Field(
+        description="Brief explanation of why this intent was chosen")
 
-processor = AutoProcessor.from_pretrained("jensenlwt/whisper-small-singlish-122k")
-model = AutoModelForSpeechSeq2Seq.from_pretrained("jensenlwt/whisper-small-singlish-122k")
-# Initialize clients for ASR and TTS
-openai.api_key = os.getenv("OPENAI_API_KEY")  # Ensure this is set in your environment
-openai_client = openai  # Using openai python library for Whisper transcription
-elevenlabs_client = ElevenLabs(api_key=os.getenv("ELEVENLABS_API_KEY"))
-stripe.api_key = os.getenv("STRIPE_API_KEY")
+# ----------------------- Define Workflow State -----------------------
+class ClinicState(TypedDict):
+    messages: Annotated[List, None]
+    verified: bool
+    patient: Optional[Dict]
+    nric: Optional[str]
+    service: Optional[str]
+    stage: str
+    last_processed_msg_idx: int
+    appointment_stage: Optional[str]
+    current_appointment: Optional[Dict]
+    offered_slots: Optional[List[Dict]]
+    payment_stage: Optional[str]
+    payment_id: Optional[str]
+    payment_amount: Optional[float]
+    payment_completed: Optional[bool]
+    chat_started: Optional[bool]
+    stripe_checkout_session_id: Optional[str]
+    stripe_checkout_session_url: Optional[str]
+    qr_code_path: Optional[str]
+    intent_classification: Optional[Dict]
 
 # ----------------------- Automatic Speech Recognition (ASR) -----------------------
-def record_audio_input(silence_threshold: float = 500, silence_duration: float = 1.0, sample_rate: int = 16000) -> str:
+def record_audio_input(openai_client: openai.OpenAI, silence_threshold: float = 500, silence_duration: float = 1.0, sample_rate: int = 16000) -> str:
     """
     Enhanced version of the audio recording function with visual feedback.
     
@@ -74,11 +97,6 @@ def record_audio_input(silence_threshold: float = 500, silence_duration: float =
     Returns:
       The transcribed text from the audio using OpenAI's Whisper model.
     """
-    import sounddevice as sd
-    import numpy as np
-    import io
-    from scipy.io.wavfile import write
-    import time
 
     # Define chunk parameters
     chunk_duration = 0.5  # seconds per chunk
@@ -140,8 +158,9 @@ def record_audio_input(silence_threshold: float = 500, silence_duration: float =
     write(audio_bytes, sample_rate, audio_data)
     audio_bytes.seek(0)
     audio_bytes.name = "audio.wav"
-
+    
     # Transcribe using OpenAI Whisper (model "whisper-1")
+    openai_client = openai.OpenAI(api_key=openai_api_key)
     transcription = openai_client.audio.transcriptions.create(
        model="whisper-1", 
        language="en",
@@ -160,7 +179,7 @@ def record_audio_input(silence_threshold: float = 500, silence_duration: float =
     return transcription_text
 
 # ----------------------- Text-to-Speech (TTS) -----------------------
-def play_audio_response(text: str):
+def play_audio_response(elevenlabs_client: ElevenLabs, text: str):
     """
     Converts text to speech using ElevenLabs and plays the audio using Streamlit's audio player.
     """
@@ -181,20 +200,6 @@ def play_audio_response(text: str):
     # Collect the generator's output into a single bytes object.
     tts_audio = b"".join(tts_generator)
     st.audio(tts_audio, format="audio/mp3")
-
-
-# ----------------------- Intent Classification -----------------------
-class IntentClassification(BaseModel):
-    """Classification of user intent."""
-    intent: str = Field(
-        description="The classified intent, must be one of: 'appointment', 'payment', 'faq', 'unknown'")
-    confidence: float = Field(
-        description="Confidence score between 0 and 1")
-    explanation: str = Field(
-        description="Brief explanation of why this intent was chosen")
-
-
-vectorstore = get_vectorstore()
 
 # ----------------------- Stripe API Functions -----------------------
 def load_products(json_filepath: str) -> list:
@@ -378,27 +383,6 @@ def verify_nric_simple(user_input: str) -> Dict:
     else:
         return {"verified": False, "nric": nric, "message": "NRIC not found. Please check and try again."}
 
-# ----------------------- Define Workflow State -----------------------
-class ClinicState(TypedDict):
-    messages: Annotated[List, None]
-    verified: bool
-    patient: Optional[Dict]
-    nric: Optional[str]
-    service: Optional[str]
-    stage: str
-    last_processed_msg_idx: int
-    appointment_stage: Optional[str]
-    current_appointment: Optional[Dict]
-    offered_slots: Optional[List[Dict]]
-    payment_stage: Optional[str]
-    payment_id: Optional[str]
-    payment_amount: Optional[float]
-    payment_completed: Optional[bool]
-    chat_started: Optional[bool]
-    stripe_checkout_session_id: Optional[str]
-    stripe_checkout_session_url: Optional[str]
-    qr_code_path: Optional[str]
-    intent_classification: Optional[Dict]
 
 # ----------------------- NRIC Verifier Node -----------------------
 def nric_verifier_node(state: ClinicState) -> ClinicState:
@@ -646,7 +630,7 @@ def service_router_node(state: ClinicState) -> ClinicState:
         llm = ChatOpenAI(
             model="gpt-4o",
             temperature=0,
-            openai_api_key=st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
+            openai_api_key=st.secrets.get("OPENAI_API_KEY")
         )
         parser = PydanticOutputParser(pydantic_object=IntentClassification)
         prompt = ChatPromptTemplate.from_messages([
@@ -766,6 +750,14 @@ def add_fixed_chat_input_css():
     """, unsafe_allow_html=True)
 
 def main():
+    openai.api_key = st.secrets["OPENAI_API_KEY"]  # Ensure this is set in your environment
+    openai_client = openai  # Using openai python library for Whisper transcription
+    elevenlabs_client = ElevenLabs(api_key=st.secrets["ELEVENLABS_API_KEY"])
+    stripe.api_key = st.secrets["STRIPE_API_KEY"]
+
+    # processor = AutoProcessor.from_pretrained("jensenlwt/whisper-small-singlish-122k")
+    # model = AutoModelForSpeechSeq2Seq.from_pretrained("jensenlwt/whisper-small-singlish-122k")
+
     st.title("Clinic Voice Assistant")
     add_fixed_chat_input_css()
     
@@ -850,9 +842,24 @@ def main():
                     if p_updated and c_updated:
                         st.session_state["payment_completed"] = True
                         st.session_state["payment_stage"] = "completed"
-                        st.session_state["messages"].append({"role": "assistant", "content": f"Payment of ${st.session_state.get('payment_amount'):.2f} has been completed successfully via Stripe Checkout!"})
+                        st.session_state["messages"].append({
+                            "role": "assistant",
+                            "content": f"Payment of ${st.session_state.get('payment_amount'):.2f} has been completed successfully via Stripe Checkout!"
+                        })
+                        # Delete the QR code file from disk if it exists
+                        qr_path = st.session_state.get("qr_code_path")
+                        if qr_path and os.path.exists(qr_path):
+                            try:
+                                os.remove(qr_path)
+                                st.session_state["qr_code_path"] = None  # Optional: clear the state
+                                st.write("Cleanup: QR code file deleted from disk.")
+                            except Exception as e:
+                                st.error(f"Error deleting QR code file: {e}")
                     else:
-                        st.session_state["messages"].append({"role": "assistant", "content": "Payment update failed. Please try again."})
+                        st.session_state["messages"].append({
+                            "role": "assistant",
+                            "content": "Payment update failed. Please try again."
+                        })
                     st.rerun()
             else:
                 st.warning("No payment session created yet or session ID is missing.")
@@ -880,7 +887,7 @@ def main():
                 # Voice input mode
                 if st.button("Start Speaking", key="start_speaking_btn"):
                     with st.spinner("Listening..."):
-                        transcription = record_audio_input(silence_threshold=500, silence_duration=1.0, sample_rate=16000)
+                        transcription = record_audio_input(openai_client, silence_threshold=500, silence_duration=1.0, sample_rate=16000)
                         
                         if transcription.strip():
                             st.session_state.messages.append({"role": "user", "content": transcription})
@@ -989,7 +996,7 @@ def main():
     
         # Always play the latest assistant message via TTS
         if st.session_state.get("messages") and st.session_state["messages"][-1]["role"] == "assistant":
-            play_audio_response(st.session_state["messages"][-1]["content"])
+            play_audio_response(elevenlabs_client, st.session_state["messages"][-1]["content"])
 
 if __name__ == "__main__":
     main()
