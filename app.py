@@ -17,20 +17,12 @@ from typing import Dict, Optional, List, Annotated, TypedDict
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
 from datetime import datetime, timedelta
-from supabase import create_client, Client
-import streamlit.components.v1 as components
-from streamlit import html
 
 # OpenAI and ElevenLabs imports for ASR and TTS
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.output_parsers import PydanticOutputParser
-from langchain.text_splitter import CharacterTextSplitter
-from langchain_community.embeddings import OpenAIEmbeddings
-from langchain_community.vectorstores import SupabaseVectorStore
-from langchain_community.document_loaders import TextLoader
-from langchain.schema import Document
 from pydantic import BaseModel, Field
 
 # ElevenLabs & OpenAI client initialization for audio processing
@@ -630,7 +622,7 @@ def service_router_node(state: ClinicState) -> ClinicState:
         llm = ChatOpenAI(
             model="gpt-4o",
             temperature=0,
-            openai_api_key=st.secrets.get("OPENAI_API_KEY")
+            openai_api_key=st.session_state["OPENAI_API_KEY"]
         )
         parser = PydanticOutputParser(pydantic_object=IntentClassification)
         prompt = ChatPromptTemplate.from_messages([
@@ -749,29 +741,54 @@ def add_fixed_chat_input_css():
     </style>
     """, unsafe_allow_html=True)
 
+def api_key_sidebar():
+    # Display a header in the sidebar
+    st.sidebar.header("API Key Configuration")
+    
+    # Get API keys from the user
+    openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password", key="openai_key")
+    elevenlabs_api_key = st.sidebar.text_input("ElevenLabs API Key", type="password", key="elevenlabs_key")
+    
+    # Provide a button to explicitly save the keys
+    if st.sidebar.button("Save API Keys"):
+        # Save the keys in session state (or validate them) if needed
+        st.session_state["OPENAI_API_KEY"] = openai_api_key
+        st.session_state["ELEVENLABS_API_KEY"] = elevenlabs_api_key
+        st.sidebar.success("API keys saved!")
+    
+    # Always return the entered API keys, regardless of whether the button is clicked.
+    return openai_api_key, elevenlabs_api_key
+
 def main():
-    openai.api_key = st.secrets["OPENAI_API_KEY"]  # Ensure this is set in your environment
-    openai_client = openai  # Using openai python library for Whisper transcription
-    elevenlabs_client = ElevenLabs(api_key=st.secrets["ELEVENLABS_API_KEY"])
-    stripe.api_key = st.secrets["STRIPE_API_KEY"]
+
+    openai_api_key, elevenlabs_key = api_key_sidebar()
 
     # processor = AutoProcessor.from_pretrained("jensenlwt/whisper-small-singlish-122k")
     # model = AutoModelForSpeechSeq2Seq.from_pretrained("jensenlwt/whisper-small-singlish-122k")
 
     st.title("Clinic Voice Assistant")
     add_fixed_chat_input_css()
-    
+
+    # You can check if API keys exist, and optionally warn the user if not:
+    if not openai_api_key or not elevenlabs_key:
+        st.warning("Please enter and save your API keys from the sidebar!")
+
+    openai_client = openai  # Using openai python library for Whisper transcription
+    elevenlabs_client = ElevenLabs(api_key=elevenlabs_key)
+    stripe.api_key = st.secrets["STRIPE_API_KEY"]    
     # Initialize chat if not already started
     if "chat_started" not in st.session_state:
         st.session_state["chat_started"] = False
 
     if not st.session_state["chat_started"]:
+
         st.markdown("""
         ## Welcome to our Clinic Voice Assistant
         
         This assistant can help you with appointments, payments, or general queries.
         Please speak clearly when prompted.
         """)
+
         if st.button("Begin Chat", key="begin_chat_btn"):
             st.session_state["chat_started"] = True
             st.session_state["messages"] = [{"role": "assistant", "content": "Welcome! Please say your NRIC number to begin."}]

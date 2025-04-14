@@ -3,7 +3,7 @@ import uuid
 from pydantic import BaseModel, Field
 from openai import OpenAI
 from langsmith import wrappers, Client
-from typing import Dict, List
+from typing import Dict
 import os
 import streamlit as st
 from supabase import create_client, Client

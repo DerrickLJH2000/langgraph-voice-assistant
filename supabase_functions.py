@@ -42,7 +42,7 @@ def get_vectorstore():
                 question_answer.append(line)
         if question_answer:
             texts.append(Document(page_content="".join(question_answer)))
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(api_key=st.session_state["OPENAI_API_KEY"])
     vectorstore = SupabaseVectorStore.from_documents(
         texts,
         embedding=embeddings,
