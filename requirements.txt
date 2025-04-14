@@ -14,3 +14,4 @@ transformers==4.49.0
 qrcode
 Pillow
 streamlit_autorefresh
+supabase
