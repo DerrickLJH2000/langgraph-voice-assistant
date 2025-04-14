@@ -13,8 +13,7 @@ The Clinic Voice Assistant is a Streamlit-based application designed to help pat
 
 - [Features](#features)
 - [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Running the App](#running-the-app)
+- [Deployment on Streamlit Cloud](#deployment-on-streamlit-cloud)
 - [Configuration](#configuration)
 - [Folder Structure](#folder-structure)
 - [Troubleshooting](#troubleshooting)
@@ -32,66 +31,53 @@ The Clinic Voice Assistant is a Streamlit-based application designed to help pat
 
 ## Prerequisites
 
-Before setting up and running the application, ensure you have:
+Before deploying the application, ensure you have:
 
-- **Python 3.11** installed.
-- A stable internet connection (for API calls and transcription services).
+- A [Streamlit Cloud](https://streamlit.io/cloud) account.
+- A stable internet connection for API calls and transcription services.
+- Valid API keys for the required services (see [Configuration](#configuration) below).
 
-### API Keys and Environment Variables
+## Deployment on Streamlit Cloud
 
-The application depends on several third-party API services. You must set up the following API keys in your Streamlit secrets file:
+Deploying on Streamlit Cloud is straightforward:
 
-- **OPENAI_API_KEY:** For accessing OpenAI's Whisper transcription.
-- **ELEVENLABS_API_KEY:** For text-to-speech conversion using ElevenLabs.
-- **STRIPE_API_KEY:** For integrating with Stripe Checkout and payment processing.
+1. **Push to GitHub:**
+   - Ensure your project is committed to a GitHub repository.
 
-## Installation
+2. **Create a New App on Streamlit Cloud:**
+   - Go to [Streamlit Cloud](https://streamlit.io/cloud) and sign in.
+   - Click on **"New app"**.
+   - Select your GitHub repository and set the branch and main file (e.g., `app.py`).
 
-To install the application locally, follow these steps:
+3. **Configure Secrets:**
+   - Streamlit Cloud provides a way to securely store sensitive credentials. In your app’s dashboard, click on **"Secrets"**.
+   - Add the following secrets:
 
-1. **Clone the Repository**
+     ```toml
+     [general]
+     OPENAI_API_KEY = "your_openai_api_key_here"
+     ELEVENLABS_API_KEY = "your_elevenlabs_api_key_here"
+     STRIPE_API_KEY = "your_stripe_api_key_here"
+     ```
 
-   Open your terminal and execute:
+     These values will automatically be loaded into your application and can be accessed via `st.secrets`.
 
-   ```bash
-   git clone https://github.com/DerrickLJH2000/langgraph-voice-assistant.git
-   cd clinic-voice-assistant
-   ```
-
-2. **Install Dependencies**
-
-   Install all required dependencies using pip:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-   This command will install libraries such as Streamlit, Stripe, qrcode, Pillow, OpenAI, ElevenLabs, LangChain, and other necessary packages.
-
-## Running the App
-
-Once the installation is complete, you can launch your Streamlit application by running:
-
-```bash
-streamlit run app.py
-```
-
-After the server starts, your default web browser should open the app, or you can navigate to the URL provided in the terminal.
+4. **Deploy:**
+   - After configuring your secrets, click **"Deploy"**. Your app will be built and hosted on Streamlit Cloud.
 
 ## Configuration
 
-### Streamlit Secrets
+### API Keys and Environment Variables
 
-Create or update the `streamlit/secrets.toml` file in your repository directory with the following content to securely store your API keys:
+The application depends on several third-party API services. Instead of cloning and running locally, you’ll configure your keys directly on Streamlit Cloud using its secrets management.
 
-```toml
-[general]
-OPENAI_API_KEY = "your_openai_api_key_here"
-ELEVENLABS_API_KEY = "your_elevenlabs_api_key_here"
-STRIPE_API_KEY = "your_stripe_api_key_here"
-```
+The following API keys must be provided:
 
-> **Note:** Do not share or expose your API keys publicly. This file is automatically protected by Streamlit when deployed.
+- **OPENAI_API_KEY:** Access OpenAI's Whisper transcription service.
+- **ELEVENLABS_API_KEY:** Enable text-to-speech conversion using ElevenLabs.
+- **STRIPE_API_KEY:** Integrate with Stripe Checkout for payment processing.
+
+These keys are referenced in the app’s code and can be saved in the Streamlit secrets file as shown above. Additionally, the app features a fixed sidebar where users can enter their own OpenAI and ElevenLabs keys to override the stored values if desired.
 
 ## Folder Structure
 
@@ -111,26 +97,19 @@ clinic-voice-assistant/
 └── appointment_agent.py     # Handles appointment logic and scheduling
 ```
 
+
 Ensure that the resources inside the `utils` folder are correctly placed for the application to locate product details and logos.
 
 ## Troubleshooting
 
 - **Voice Transcription Issues:**  
-  Verify your OpenAI API key and ensure a stable internet connection if speech-to-text functionality is not performing as expected.
+  Verify that your OpenAI API key is valid and that your internet connection is stable if speech-to-text functionality is not performing as expected.
 
 - **Payment Processing Problems:**  
-  Confirm your Stripe API key is correct and that you have created the required products in your Stripe dashboard. Also, check that your `products.json` file is correctly formatted.
+  Confirm your Stripe API key is correct, ensure you have created the required products in your Stripe dashboard, and verify the `products.json` file is correctly formatted.
 
 - **Missing API Keys:**  
-  Make sure you have set all necessary API keys in `streamlit/secrets.toml`. Without these, certain features (like TTS or transcription) will not work.
+  Ensure you have set all necessary API keys in your Streamlit secrets on the Cloud dashboard. Without these, certain features (like TTS or transcription) will not work.
 
 - **General Debugging:**  
   Use the debug expander in the app to inspect the current state, which can provide insight into problems in workflow processing.
-
-## Contributing
-
-Contributions are welcome! Feel free to fork this repository, make improvements, and submit a pull request. For any issues or suggestions, open an issue on the repository.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
